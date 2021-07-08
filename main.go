@@ -5,6 +5,12 @@ import (
 	"log"
 )
 
+type User struct {
+	USER_ID		string	`json:"id"`
+	NAME_ID		string	`json:"name"`
+	PASSWORD	string	`json:"password"`
+}
+
 func main(){
 	//ルータのイニシャライズ
 	r := mix.NewRouter()
