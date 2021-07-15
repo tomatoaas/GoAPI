@@ -18,11 +18,6 @@ type USER struct {
 
 //Userのデータを保持するスライスの作成
 var users []USER
-//すべてのuserを取得する
-func getUsers(w http.ResponseWriter, r *http.Request){
-        w.Header().Set("Content-Type", "application/json")
-        json.NewEncoder(w).Encode(users)
-}
 //特定のuserを取得する
 
 func getUser(w http.ResponseWriter, r *http.Request){
@@ -98,7 +93,7 @@ func main(){
 }
 
 func showOpeningIndex(w http.ResponseWriter, r *http.Request) {
-	opening := openingdao.getUsers()
+	opening := openingdao.GetUsers()
 	//json形式に変換します
 	bytes, err :=json.Marshal(opening)
 	if err != nil {

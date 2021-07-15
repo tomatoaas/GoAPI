@@ -10,7 +10,7 @@ type Opening struct {
         PASSWORD        string  `json:"password"`
 }
 
-func getUsers() []Opening {
+func GetUsers() []Opening {
 	db := db.Connect()
 	defer db.Close()
 
