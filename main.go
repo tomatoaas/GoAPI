@@ -7,6 +7,8 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+
+	openingdao "github.com/tomatoaas/GoAPI/dao"
 )
 
 type USER struct {
@@ -91,14 +93,19 @@ func main(){
 	//ルータのイニシャライズ
 	r := mux.NewRouter()
 
-	//モックデータの作成
-	users = append(users, USER{USER_ID: "1", USER_NAME: "Yoshi", PASSWORD: "123qwe"})
-	users = append(users, USER{USER_ID: "2", USER_NAME: "mura", PASSWORD: "123qwecc"})
-
-
 	//ルート（エンドポイント）
-	r.HandleFunc("api/user", getUser).Methods("GET")
+	r.HandleFunc("/api/user/", showOpeningIndex).Methods("GET")
 	r.HandleFunc("api/user/{id}", getUser).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
+}
+
+func showOpeningIndex(w http.ResponseWriter, r *http.Request) {
+	opening := openingdao.FetchIndex()
+	//json形式に変換します
+	bytes, err :=json.Marshal(opening)
+	if err != nil {
+		log.Fatal(err)
+	}
+	w.Write([]byte(string(bytes)))
 }
