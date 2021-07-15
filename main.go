@@ -10,22 +10,19 @@ import (
 
 	openingdao "github.com/tomatoaas/GoAPI/dao"
 )
-
 type USER struct {
-	USER_ID		string	`json:"id"`
-	USER_NAME	string	`json:"name"`
-	PASSWORD	string	`json:"password"`
+        USER_ID         string  `json:"id"`
+        USER_NAME       string  `json:"name"`
+        PASSWORD        string  `json:"password"`
 }
 
 //Userのデータを保持するスライスの作成
 var users []USER
-
 //すべてのuserを取得する
 func getUsers(w http.ResponseWriter, r *http.Request){
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(users)
+        w.Header().Set("Content-Type", "application/json")
+        json.NewEncoder(w).Encode(users)
 }
-
 //特定のuserを取得する
 
 func getUser(w http.ResponseWriter, r *http.Request){
@@ -101,7 +98,7 @@ func main(){
 }
 
 func showOpeningIndex(w http.ResponseWriter, r *http.Request) {
-	opening := openingdao.FetchIndex()
+	opening := openingdao.getUsers()
 	//json形式に変換します
 	bytes, err :=json.Marshal(opening)
 	if err != nil {
