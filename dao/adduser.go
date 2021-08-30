@@ -1,8 +1,8 @@
-package openingdao
+package dao
 
 
 import(
-	"github.com/tomatoaas/go_practice/pkg/db"
+	"github.com/tomatoaas/GoAPI/db"
 	"github.com/rs/xid"
 )
 
@@ -26,13 +26,13 @@ func AddUser(username string, password string) Add {
 	guid := xid.New()
 	uuid := guid.String()
 
-	_, err := db.Exec("INSERT INTO user VALUES(?,?,?)", uuid, username, password)
+	_, err := db.Exec("INSERT INTO USER VALUES(?,?,?)", uuid, username, password)
 
 	var add = Add{}
 	if err != nil{
 		add.Message = "No"
 	}else {
-        add.Message = "OK"
+	        add.Message = "OK"
 	}
 
 	add.Data.Userid = uuid

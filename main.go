@@ -4,16 +4,14 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"log"
-	"math/rand"
 	"net/http"
-	"strconv"
-	"fmt"
 
 	openingdao "github.com/tomatoaas/GoAPI/dao"
+	//openingdao /home/pi/go/GoAPI/dao
 )
 type USER struct {
         USER_ID         string  `json:"id"`
-        USER_NAME       string  `json:"user_name"`
+        USERNAME       string  `json:"username"`
         PASSWORD        string  `json:"password"`
 }
 
@@ -44,7 +42,7 @@ func adduser(w http.ResponseWriter, r *http.Request) {
 
 	var user USER
 	json.NewDecoder(r.Body).Decode(&user)
-	opening := openingdao.AddUser(user.USER_NAME, user.PASSWORD)
+	opening := openingdao.AddUser(user.USERNAME, user.PASSWORD)
 
 	//json形式に変換します
 	bytes, err :=json.Marshal(opening)
@@ -60,13 +58,13 @@ func updateuser(w http.ResponseWriter, r *http.Request) {
 
 	var user USER
 	json.NewDecoder(r.Body).Decode(&user)
-	opening := openingdao.UpdateUser(user.USER_ID, user.USER_NAME)
+	//opening := openingdao.UpdateUser(user.USER_ID, user.USER_NAME)
 
 	//json形式に変換します
-	bytes, err :=json.Marshal(opening)
-	if err != nil {
-		log.Fatal(err)
-	}
-	w.Write(bytes)
+//	bytes, err :=json.Marshal(opening)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//	w.Write(bytes)
 	//fmt.Fprintf(w, "%s", opening)
 }
