@@ -7,10 +7,9 @@ import (
 	"net/http"
 
 	openingdao "github.com/tomatoaas/GoAPI/dao"
-	//openingdao /home/pi/go/GoAPI/dao
 )
 type USER struct {
-        USER_ID         string  `json:"id"`
+        USERID         string  `json:"userid"`
         USERNAME       string  `json:"username"`
         PASSWORD        string  `json:"password"`
 }
@@ -20,10 +19,9 @@ func main(){
 	r := mux.NewRouter()
 
 	//ルート（エンドポイント）
-	r.HandleFunc("/api/user/", showOpeningIndex).Methods("GET")
-	r.HandleFunc("/api/user/", adduser).Methods("POST")
-
-
+	r.HandleFunc("/`api/user/", showOpeningIndex).Methods("GET")
+	r.HandleFunc("/api/user/add/", adduser).Methods("POST")
+	r.HandleFunc("/api/user/update/", updateuser).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
@@ -50,7 +48,6 @@ func adduser(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	w.Write(bytes)
-	//fmt.Fprintf(w, "%s", opening)
 }
 
 func updateuser(w http.ResponseWriter, r *http.Request) {
@@ -58,13 +55,12 @@ func updateuser(w http.ResponseWriter, r *http.Request) {
 
 	var user USER
 	json.NewDecoder(r.Body).Decode(&user)
-	//opening := openingdao.UpdateUser(user.USER_ID, user.USER_NAME)
+	opening := openingdao.UpdateUser(user.USERID, user.USERNAME)
 
 	//json形式に変換します
-//	bytes, err :=json.Marshal(opening)
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//	w.Write(bytes)
-	//fmt.Fprintf(w, "%s", opening)
+	bytes, err :=json.Marshal(opening)
+	if err != nil {
+		log.Fatal(err)
+	}
+	w.Write(bytes)
 }
