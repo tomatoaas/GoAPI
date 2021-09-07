@@ -19,7 +19,7 @@ func main(){
 	r := mux.NewRouter()
 
 	//ルート（エンドポイント）
-	r.HandleFunc("/`api/user/", showOpeningIndex).Methods("GET")
+	r.HandleFunc("/api/user/", showOpeningIndex).Methods("GET")
 	r.HandleFunc("/api/user/add/", adduser).Methods("POST")
 	r.HandleFunc("/api/user/update/", updateuser).Methods("POST")
 	r.HandleFunc("/api/user/login/", login).Methods("POST")
