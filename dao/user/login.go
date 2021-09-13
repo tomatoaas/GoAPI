@@ -18,15 +18,17 @@ func LoginUser(userid string, password string) Login {
 
 	var log = Login{}
 	var pass string
-	err := db.QueryRow("SELECT USER_NAME, PASSWORD FROM USER WHERE USER_ID = ?",userid).Scan(&log.Data.Username, &pass)
+	var username string
+	err := db.QueryRow("SELECT USER_NAME, PASSWORD FROM USER WHERE USER_ID = ?",userid).Scan(&username, &pass)
 	if err != nil{
-		log.Message = "Not User"
-		//log.Message = "このユーザーは登録されていません。"
+		//log.Message = "Not User"
+		log.Message = "このユーザーは登録されていません。"
 	}else {
 		if pass == password{
+			log.Data.Username = username;
 			log.Message = "OK"
 		}else{
-			log.Message = "Not Pass"
+			log.Message = "Not Passs"
 			//log.Message = "パスワードが間違ってます。"
 		}
 	}

@@ -23,6 +23,7 @@ func main(){
 	r.HandleFunc("/api/user/add/", adduser).Methods("POST")
 	r.HandleFunc("/api/user/update/", updateuser).Methods("POST")
 	r.HandleFunc("/api/user/login/", login).Methods("POST")
+	//r.HandleFunc("/api/money/show/", showAll).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
@@ -79,4 +80,17 @@ func login(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	w.Write(bytes)
+}
+
+func showMoney(w http.ResponseWriter, r *http.Request) {
+	var user USER
+	json.NewDecoder(r.Body).Decode(&user)
+
+	opening := openingdao.ShowAll(user.USERID)
+	//json形式に変換します
+	bytes, err :=json.Marshal(opening)
+	if err != nil {
+		log.Fatal(err)
+	}
+	w.Write([]byte(string(bytes)))
 }
