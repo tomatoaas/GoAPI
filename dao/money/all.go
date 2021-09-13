@@ -19,7 +19,7 @@ func ShowAll(userid string) []All {
 	defer db.Close()
 
 	//row を取得
-	rows, err := db.Query("SELECT SAVING_DATETIME, one_yen, five_yen, ten_yen, fifty_yen, hundred_yen, five_hundred_yen FROM SAVING_HISTORY WHERE userid");
+	rows, err := db.Query("SELECT SAVING_DATETIME, one_yen, five_yen, ten_yen, fifty_yen, hundred_yen, five_hundred_yen FROM SAVING_HISTORY WHERE USER_ID = ?", userid);
 	if err != nil {
 		panic(err.Error())
 	}
