@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"fmt"
 
 	openingdao "github.com/tomatoaas/GoAPI/dao/user"
 	alldao "github.com/tomatoaas/GoAPI/dao/money"
@@ -91,7 +92,9 @@ func showMoney(w http.ResponseWriter, r *http.Request) {
 	//json形式に変換します
 	bytes, err :=json.Marshal(opening)
 	if err != nil {
+		fmt.Print(err)
 		log.Fatal(err)
 	}
-	w.Write([]byte(string(bytes)))
+	//w.Write([]byte(string(bytes)))
+	w.Write(bytes)
 }
