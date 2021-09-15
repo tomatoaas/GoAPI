@@ -5,7 +5,7 @@ import (
 )
 
 type Data struct {
-	Data	[]All	`json:"data"`
+	Data	[]All	`json:"Data"`
 	Message	string		`json:"message"`
 }
 
